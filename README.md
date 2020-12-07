@@ -19,7 +19,7 @@ opt -load-pass-plugin=./build/LLVMPassSample/libHelloNewPMPass.so -passes="hello
 ```
 ## Example :
 * HelloPass :
-..* Source file :
+  * Source file :
 ```C
 #include <stdio.h>
 int foo(int a,int b) {
@@ -36,7 +36,7 @@ int main() {
   return a;
 }
 ```
-..* result :
+  * result :
 ```
 Function : foo
  add: 1
@@ -59,7 +59,7 @@ Function : main
  store: 4
 ```
 * CountLoopPass :
-..* Source file :
+  * Source file :
 ```C
 #include <stdio.h>
 int main() {
@@ -75,9 +75,9 @@ int main() {
 	printf("%d\n",t);
 }
 ```
-..* CFG :
+  * CFG :
 ![Flag](img/CFG.png)
-..* result :
+  * result :
 ```
 Function : main
 LoopLevel : 0 Block : 7
