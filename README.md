@@ -18,7 +18,7 @@ clang -emit-llvm test.c -c -o test.bc
 opt -load-pass-plugin=./build/LLVMPassSample/libHelloNewPMPass.so -passes="hello-new-pm-pass" -S test.bc -o=test.ll
 ```
 ## Example :
-* HelloPass :
+1- HelloPass :
   * Source file :
 ```C
 #include <stdio.h>
@@ -58,8 +58,8 @@ Function : main
  sdiv: 1
  store: 4
 ```
-* CountLoopPass :
-  + Source file :
+2- CountLoopPass :
+  * Source file :
 ```C
 #include <stdio.h>
 int main() {
@@ -75,9 +75,9 @@ int main() {
 	printf("%d\n",t);
 }
 ```
-  + CFG :
+  * CFG :
 ![Flag](img/CFG.png)
-  + result :
+  * result :
 ```
 Function : main
 LoopLevel : 0 Block : 7
