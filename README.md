@@ -10,16 +10,16 @@ make
 ```
 ## Test
 1- generate bytecode from source file
-```
+```bash
 clang -emit-llvm test.c -c -o test.bc
 ```
 2- run the pass on it
-```
+```bash
 opt -load-pass-plugin=./build/LLVMPassSample/libHelloNewPMPass.so -passes="hello-new-pm-pass" -S test.bc -o=test.ll
 ```
 ## Example :
 * HelloPass :
-** Source file :
+..* Source file :
 ```C
 #include <stdio.h>
 int foo(int a,int b) {
@@ -36,7 +36,7 @@ int main() {
   return a;
 }
 ```
-** result :
+..* result :
 ```
 Function : foo
  add: 1
@@ -59,7 +59,7 @@ Function : main
  store: 4
 ```
 * CountLoopPass :
-** Source file :
+..* Source file :
 ```C
 #include <stdio.h>
 int main() {
@@ -75,10 +75,12 @@ int main() {
 	printf("%d\n",t);
 }
 ```
-** result :
+..* CFG :
+![Flag](img/CFG.png)
+..* result :
 ```
 Function : main
-LoopLevel : 0 Block : 3
-LoopLevel : 1 Block : 3
 LoopLevel : 0 Block : 7
+LoopLevel : 1 Block : 3
+LoopLevel : 0 Block : 3
 ```
