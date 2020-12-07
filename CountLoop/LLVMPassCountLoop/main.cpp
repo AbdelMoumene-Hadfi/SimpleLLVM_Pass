@@ -7,24 +7,24 @@ using namespace llvm;
 
 namespace {
   struct CountLoopPass : public PassInfoMixin<CountLoopPass> {
+    void countBlockInLoop(Loop *L,int level) {
+      int bbCounter=0;
+      for(Loop::block_iterator bb=L->block_begin(),be=L->block_end();bb!=be;++bb) {
+        bbCounter++;
+      }
+      std::vector<Loop*> subLoops = L->getSubLoops();
+      for(Loop::iterator j=subLoops.begin(),f=subLoops.end();j!=f;++j) {
+        countBlockInLoop(*j,level+1);
+      }
+      errs() << "LoopLevel : " << level << " Block : "<< bbCounter << "\n" ;
+    }
     PreservedAnalyses run(Function &F,FunctionAnalysisManager &FAM) {
       if(F.hasName()) {
         errs() << "Function : " << F.getName() << "\n" ;
       }
       auto &LI = FAM.getResult<LoopAnalysis>(F);
-      int loopCounter=0;
       for(LoopInfo::iterator i=LI.begin(),e=LI.end();i!=e;++i) {
-        Loop *L=*i;
-        int bbCounter=0;
-        loopCounter++;
-        for(Loop::block_iterator bb=L->block_begin(),be=L->block_end();bb!=be;++bb) {
-          bbCounter++;
-        }
-        errs() << "LOOP : " ;
-        errs() << loopCounter ;
-        errs() << ": #BBS = " ;
-        errs() << bbCounter ;
-        errs() << "\n" ;
+        countBlockInLoop(*i,0);
       }
       return PreservedAnalyses::all();
     }
