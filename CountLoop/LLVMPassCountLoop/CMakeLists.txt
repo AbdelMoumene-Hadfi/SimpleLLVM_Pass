@@ -1,1 +1,1 @@
-add_library(HelloNewPMPass MODULE main.cpp)
+add_library(CountLoopPass MODULE main.cpp)

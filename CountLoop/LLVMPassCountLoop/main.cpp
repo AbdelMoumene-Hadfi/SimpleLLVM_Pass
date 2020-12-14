@@ -38,7 +38,7 @@ llvmGetPassPluginInfo() {
     [](PassBuilder &PB) {
       PB.registerPipelineParsingCallback(
         [](StringRef PassName, FunctionPassManager &FPM, ...) {
-          if(PassName == "count-loop-pass"){
+          if(PassName == "countloop-pass"){
             FPM.addPass(CountLoopPass());
             return true;
           }
